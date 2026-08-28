@@ -1,0 +1,8 @@
+Drop your CV here and name the file exactly:
+
+    Swati-Virmani-CV.pdf
+
+The "Download my CV (PDF)" button on contact.html already points at
+assets/cv/Swati-Virmani-CV.pdf — no code change needed once the file is here.
+
+Then delete this .txt file.
