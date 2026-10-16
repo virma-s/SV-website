@@ -13,6 +13,18 @@
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="assets/img/favicon.svg">
 <link rel="stylesheet" href="assets/css/style.css">
+<script>
+/* Old WordPress menu used ?page_id= permalinks. A static host can't match a
+   query string, so those requests land here on the homepage — forward them.
+   Runs before paint so there is no visible flash of the wrong page. */
+(function () {
+  var map = { 67: "/publications.html", 84: "/research.html",
+              101: "/teaching.html",    137: "/speaking.html" };
+  var id = new URLSearchParams(location.search).get("page_id");
+  if (id && map[id]) location.replace(map[id]);
+})();
+</script>
+
 </head>
 <body>
 

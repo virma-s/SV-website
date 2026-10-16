@@ -1,0 +1,29 @@
+# Old WordPress URLs -> new pages (Apache / cPanel hosting).
+# Not used by GitHub Pages, Netlify or Cloudflare Pages.
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+
+  # WordPress query-string permalinks (matched before the path rules)
+  RewriteCond %{QUERY_STRING} (^|&)page_id=67(&|$)
+  RewriteRule ^$ /publications.html? [R=301,L]
+  RewriteCond %{QUERY_STRING} (^|&)page_id=84(&|$)
+  RewriteRule ^$ /research.html? [R=301,L]
+  RewriteCond %{QUERY_STRING} (^|&)page_id=101(&|$)
+  RewriteRule ^$ /teaching.html? [R=301,L]
+  RewriteCond %{QUERY_STRING} (^|&)page_id=137(&|$)
+  RewriteRule ^$ /speaking.html? [R=301,L]
+
+  # Pretty permalinks
+  RewriteRule ^2024/05/19/hello-world/?$ / [R=301,L]
+  RewriteRule ^most-recent-publications/?$ /publications.html [R=301,L]
+  RewriteRule ^current-research-projects/?$ /research.html [R=301,L]
+  RewriteRule ^blogs-media-stories/?$ /speaking.html [R=301,L]
+  RewriteRule ^__trashed-2/?$ /teaching.html [R=301,L]
+  RewriteRule ^scholarship-of-teaching-learning/?$ /teaching.html [R=301,L]
+
+  # Retired WordPress endpoints
+  RewriteRule ^(comments/)?feed/?$ / [R=301,L]
+</IfModule>
+
+ErrorDocument 404 /404.html

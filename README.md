@@ -81,6 +81,61 @@ Then open <http://localhost:8123>.
 - Descriptive page titles, meta descriptions and social share cards.
 - Lazy loading on below-the-fold images.
 
+## Redirects from the old WordPress site
+
+Old addresses are forwarded to the right page here, so existing links, bookmarks
+and Google results keep working.
+
+| Old WordPress address | Goes to |
+|---|---|
+| `/2024/05/19/hello-world/` | `/` |
+| `/most-recent-publications/` | `/publications.html` |
+| `/current-research-projects/` | `/research.html` |
+| `/blogs-media-stories/` | `/speaking.html` |
+| `/__trashed-2/` | `/teaching.html` |
+| `/scholarship-of-teaching-learning/` | `/teaching.html` |
+| `/?page_id=67` | `/publications.html` |
+| `/?page_id=84` | `/research.html` |
+| `/?page_id=101` | `/teaching.html` |
+| `/?page_id=137` | `/speaking.html` |
+
+**How it works on GitHub Pages** (which is where this site is hosted). GitHub
+Pages has no server-side redirect feature, so each old path is a small folder
+containing an `index.html` that forwards. Each one carries a
+`<link rel="canonical">` pointing at the new page, which is how Google transfers
+the old page's search ranking across.
+
+The `?page_id=` addresses are different: no static host can match a query string,
+so those requests land on the homepage. A short script in the `<head>` of
+`index.html` spots `page_id` and forwards. Remove that script and those four
+links stop working.
+
+`.nojekyll` must stay. GitHub Pages runs Jekyll by default, and Jekyll refuses to
+publish any folder whose name starts with an underscore — without it,
+`/__trashed-2/` would silently 404.
+
+**If you ever move host.** Two config files are included and ready:
+
+- `_redirects` — Netlify and Cloudflare Pages. Proper 301s, and it handles the
+  `?page_id=` addresses server-side.
+- `.htaccess` — Apache / cPanel / most traditional hosting.
+
+Both are ignored by GitHub Pages, so they sit there harmlessly until needed. On
+Netlify or Cloudflare you could then delete the six stub folders, though leaving
+them does no harm.
+
+### One thing these files cannot do
+
+They only work for addresses on **your** domain. If somebody has
+`swativirmanicouk.wordpress.com/most-recent-publications/` bookmarked, that
+request never reaches this site — it goes to WordPress.com.
+
+To catch those you need WordPress.com's paid **Site Redirect** upgrade on the old
+site, pointed at `swativirmani.co.uk`. It preserves the path, so the chain
+becomes: old WordPress address → the same path on your domain → the stub here →
+the right page. Without it, the old wordpress.com links keep showing the old site
+for as long as you leave it up.
+
 ## Content note
 
 Two items to check when you have a moment:
