@@ -1,20 +1,26 @@
 # Old WordPress URLs -> new pages.
-# Used by Netlify and Cloudflare Pages. GitHub Pages ignores this file —
-# there the stub pages in the matching folders do the work instead.
+#
+# Cloudflare Pages reads this file and issues real 301s. Targets are written
+# WITHOUT the .html extension because Pages serves pages extensionless and
+# 308-redirects /foo.html -> /foo; pointing straight at /foo avoids a second hop.
+#
+# GitHub Pages ignores this file — the stub folders handle it there instead.
 
-/2024/05/19/hello-world/             /                      301
-/most-recent-publications/           /publications.html     301
-/current-research-projects/          /research.html         301
-/blogs-media-stories/                /speaking.html         301
-/__trashed-2/                        /teaching.html         301
-/scholarship-of-teaching-learning/   /teaching.html         301
-
-# WordPress query-string permalinks
-/  page_id=67                        /publications.html     301
-/  page_id=84                        /research.html         301
-/  page_id=101                       /teaching.html         301
-/  page_id=137                       /speaking.html         301
+/2024/05/19/hello-world/             /                301
+/most-recent-publications/           /publications    301
+/current-research-projects/          /research        301
+/blogs-media-stories/                /speaking        301
+/__trashed-2/                        /teaching        301
+/scholarship-of-teaching-learning/   /teaching        301
 
 # Retired WordPress endpoints
-/feed/*                              /                      301
-/comments/feed/*                     /                      301
+/feed/*                              /                301
+/comments/feed/*                     /                301
+
+# NOTE: Cloudflare Pages cannot match query strings in _redirects, so the old
+# /?page_id=NN links are forwarded by a small script in index.html instead.
+# The rules below are ignored by Cloudflare and kept only for Netlify.
+/  page_id=67                        /publications    301
+/  page_id=84                        /research        301
+/  page_id=101                       /teaching        301
+/  page_id=137                       /speaking        301
